@@ -1,6 +1,11 @@
 import static java.lang.System.*;
-//-Nathan Carrillo-
+
+/**
+ * Utility class for performing operations on linked lists.
+ * Author: Nathan Carrillo
+ */
 public class ListFunHouse {
+    
     // Prints the entire list
     public static void print(ListNode list) {
         ListNode current = list;
@@ -37,6 +42,7 @@ public class ListFunHouse {
         while (current.getNext() != null) {
             current = current.getNext();
         }
+        // Append a new node with the same value as the last node
         current.setNext(new ListNode(current.getValue(), null));
     }
 
@@ -46,7 +52,7 @@ public class ListFunHouse {
 
         ListNode current = list;
         while (current != null && current.getNext() != null) {
-            current.setNext(current.getNext().getNext());
+            current.setNext(current.getNext().getNext()); // Skip one node
             current = current.getNext();
         }
     }
@@ -78,9 +84,9 @@ public class ListFunHouse {
         while (current != null) {
             if (count % x == 0) {
                 if (prev != null) {
-                    prev.setNext(current.getNext());
+                    prev.setNext(current.getNext()); // Remove current node
                 } else {
-                    list = current.getNext();
+                    list = current.getNext(); // If removing the first node
                 }
             } else {
                 prev = current;
