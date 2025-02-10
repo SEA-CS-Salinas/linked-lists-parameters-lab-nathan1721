@@ -1,51 +1,98 @@
-//(c) A+ Computer Science
-//www.apluscompsci.com
-
-//Name -
-
 import static java.lang.System.*;
 
-public class ListFunHouse
-{
-	//this method will print the entire list on the screen
-   public static void print(ListNode list)
-   {
-   }		
-	
-	//this method will return the number of nodes present in list
-	public static int nodeCount(ListNode list)
-	{
-   	int count=0;
-		return count;
-	}
-		
-	//this method will create a new node with the same value as the first node and add this
-	//new node to the list.  Once finished, the first node will occur twice.
-	public static void doubleFirst(ListNode list)
-	{
-	}
+/**
+ * Utility class for performing operations on linked lists.
+ * Author: Nathan Carrillo
+ */
+public class ListFunHouse {
+    
+    // Prints the entire list
+    public static void print(ListNode list) {
+        ListNode current = list;
+        while (current != null) {
+            System.out.print(current.getValue() + " ");
+            current = current.getNext();
+        }
+        System.out.println();
+    }
 
-	//this method will create a new node with the same value as the last node and add this
-	//new node at the end.  Once finished, the last node will occur twice.
-	public static void doubleLast(ListNode list)
-	{
-   	ListNode prev=null;
-	}
-		
-	//method skipEveryOther will remove every other node
-	public static void skipEveryOther(ListNode list)
-	{
-	}
+    // Returns the number of nodes in the list
+    public static int nodeCount(ListNode list) {
+        int count = 0;
+        ListNode current = list;
+        while (current != null) {
+            count++;
+            current = current.getNext();
+        }
+        return count;
+    }
 
-	//this method will set the value of every xth node in the list
-	public static void setXthNode(ListNode list, int x, Comparable value)
-	{
-		int count=1;
-	}	
+    // Creates a new node with the same value as the first node and adds it to the list
+    public static void doubleFirst(ListNode list) {
+        if (list != null) {
+            list = new ListNode(list.getValue(), list);
+        }
+    }
 
-	//this method will remove every xth node in the list
-	public static void removeXthNode(ListNode list, int x)
-	{
-		int count=1;
-	}		
+    // Creates a new node with the same value as the last node and adds it to the end
+    public static void doubleLast(ListNode list) {
+        if (list == null) return;
+
+        ListNode current = list;
+        while (current.getNext() != null) {
+            current = current.getNext();
+        }
+        // Append a new node with the same value as the last node
+        current.setNext(new ListNode(current.getValue(), null));
+    }
+
+    // Removes every other node from the list
+    public static void skipEveryOther(ListNode list) {
+        if (list == null) return;
+
+        ListNode current = list;
+        while (current != null && current.getNext() != null) {
+            current.setNext(current.getNext().getNext()); // Skip one node
+            current = current.getNext();
+        }
+    }
+
+    // Sets the value of every x-th node in the list
+    public static void setXthNode(ListNode list, int x, Comparable value) {
+        if (x <= 0 || list == null) return;
+
+        ListNode current = list;
+        int count = 1;
+
+        while (current != null) {
+            if (count % x == 0) {
+                current.setValue(value);
+            }
+            current = current.getNext();
+            count++;
+        }
+    }
+
+    // Removes every x-th node in the list
+    public static void removeXthNode(ListNode list, int x) {
+        if (x <= 1 || list == null) return;
+
+        ListNode current = list;
+        ListNode prev = null;
+        int count = 1;
+
+        while (current != null) {
+            if (count % x == 0) {
+                if (prev != null) {
+                    prev.setNext(current.getNext()); // Remove current node
+                } else {
+                    list = current.getNext(); // If removing the first node
+                }
+            } else {
+                prev = current;
+            }
+            current = current.getNext();
+            count++;
+        }
+    }
 }
